@@ -135,6 +135,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl
 
+# QCOM GPS
+PRODUCT_PACKAGES += \
+    libloc_api_v02 \
+    libloc_ds_api
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
