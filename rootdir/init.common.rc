@@ -236,6 +236,19 @@ on boot
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
 
+# msm specific files that need to be created on /data
+on post-fs-data
+    #Create PERFD deamon related dirs
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    chmod 2770 /data/system/perfd
+
+service perfd /system/vendor/bin/perfd
+    class main
+    user root
+    disabled
+    writepid /dev/cpuset/system-background/tasks
 
 # SONY misc
 service tad_static /system/vendor/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
