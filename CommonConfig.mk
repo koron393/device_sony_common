@@ -77,3 +77,4 @@ TARGET_KERNEL_SOURCE := kernel/sony/msm
 
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += device/sony/common/sepolicy
