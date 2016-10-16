@@ -115,6 +115,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
 
+# SDCardFS
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.sys.sdcardfs=true
+
 # Set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp,adb
