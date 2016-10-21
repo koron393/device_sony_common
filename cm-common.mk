@@ -90,5 +90,9 @@ PRODUCT_PACKAGES += \
     keycheck \
     toybox_static
 
+# USB OTG prop
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.isUsbOtgEnabled=true
+
 # Some functional extras
 $(call inherit-product-if-exists, vendor/qcom/proprietary/proprietary.mk)
