@@ -31,6 +31,12 @@ endif
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 
+# CM Hardware
+BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
+BOARD_HARDWARE_CLASS += device/sony/common/cmhw
+BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
+
 # CM Packages
 PRODUCT_PACKAGES += \
     Gello
