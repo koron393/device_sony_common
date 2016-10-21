@@ -98,6 +98,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
+# Lights HAL
+TARGET_PROVIDES_LIBLIGHT := true
+
 # Power HAL
 TARGET_POWERHAL_VARIANT := qcom
 CM_POWERHAL_EXTENSION := qcom
