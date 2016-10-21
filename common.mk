@@ -131,7 +131,7 @@ PRODUCT_PACKAGES += \
 
 # QCOM OSS
 PRODUCT_PACKAGES += \
-   librmnetctl
+    librmnetctl
 
 # Charger
 PRODUCT_PACKAGES += \
