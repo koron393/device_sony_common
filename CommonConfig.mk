@@ -67,6 +67,7 @@ ifeq ($(HOST_OS),linux)
 endif
 
 BUILD_KERNEL := true
+TARGET_KERNEL_SOURCE := kernel/sony/msm
 -include device/sony/common-headers/KernelHeaders.mk
 -include device/sony/common-kernel/KernelConfig.mk
 
