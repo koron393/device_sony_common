@@ -55,6 +55,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.video=true \
     av.streaming.offload.enable=true
 
+# Camera
+DEVICE_SPECIFIC_CAMERA_PATH := hardware/sony/camera
+
 # Camera package
 PRODUCT_PACKAGES += \
     Snap
