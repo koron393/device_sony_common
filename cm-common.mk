@@ -19,6 +19,14 @@ BOARD_VENDOR := sony
 BOARD_USES_QCOM_HARDWARE := true
 SONY_BF64_KERNEL_VARIANT := true
 
+# Overlay
+ifneq ($(BOARD_HAVE_RADIO),false)
+    DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay-radio
+    $(call inherit-product, device/sony/common/radio.mk)
+else
+    DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay-wifionly
+endif
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
