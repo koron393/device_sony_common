@@ -62,5 +62,33 @@ DEVICE_SPECIFIC_CAMERA_PATH := hardware/sony/camera
 PRODUCT_PACKAGES += \
     Snap
 
+# Display
+PRODUCT_PACKAGES += \
+    libgenlock \
+    libmemalloc \
+    liboverlay \
+    libqdutils \
+    libtilerenderer \
+    libI420colorconvert
+
+# Media codecs (Omx)
+PRODUCT_PACKAGES += \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libdashplayer \
+    libdivxdrmdecrypt
+
+# Network
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
+# Recovery
+PRODUCT_PACKAGES += \
+    init_sony \
+    keycheck \
+    toybox_static
+
 # Some functional extras
 $(call inherit-product-if-exists, vendor/qcom/proprietary/proprietary.mk)
