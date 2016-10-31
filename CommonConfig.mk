@@ -69,6 +69,7 @@ EXTENDED_FONT_FOOTPRINT := true
 
 BUILD_KERNEL := true
 TARGET_KERNEL_SOURCE := kernel/sony/msm
+TARGET_COMPILE_WITH_MSM_KERNEL := true
 -include device/sony/common-headers/KernelHeaders.mk
 -include device/sony/common-kernel/KernelConfig.mk
 
