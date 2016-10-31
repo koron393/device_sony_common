@@ -122,6 +122,3 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp,adb
-
-# Some functional extras
-$(call inherit-product-if-exists, vendor/qcom/proprietary/proprietary.mk)
