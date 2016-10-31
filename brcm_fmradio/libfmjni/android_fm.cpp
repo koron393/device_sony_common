@@ -39,7 +39,9 @@
 #include <utils/Log.h>
 #include "android_fmradio_Receiver.h"
 
-#ifndef LIBRARY_PATH
+#ifdef FM_MSM_8974
+#define LIBRARY_PATH "/system/lib/"
+#else
 #define LIBRARY_PATH "/system/lib64/"
 #endif
 

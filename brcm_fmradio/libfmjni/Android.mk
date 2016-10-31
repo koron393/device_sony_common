@@ -16,6 +16,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+ifeq ($(TARGET_BOARD_PLATFORM),msm8974)
+LOCAL_CFLAGS += -D FM_MSM_8974
+endif
+
 LOCAL_MODULE    := libfmjni
 LOCAL_SRC_FILES := android_fm.cpp \
                    android_fmradio_Receiver.cpp
