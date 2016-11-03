@@ -101,10 +101,6 @@ PRODUCT_PACKAGES += \
 # Lights HAL
 TARGET_PROVIDES_LIBLIGHT := true
 
-# Power HAL
-TARGET_POWERHAL_VARIANT := qcom
-CM_POWERHAL_EXTENSION := qcom
-
 # Recovery
 PRODUCT_PACKAGES += \
     init_sony \
