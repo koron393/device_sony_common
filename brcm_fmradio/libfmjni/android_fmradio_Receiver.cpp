@@ -679,7 +679,7 @@ jboolean powerUp(JNIEnv *env, jobject thiz, jfloat freq)
 
  //   ALOGI("%s, [freq=%d]\n", __func__, (int)freq);
     tmp_freq = (int)(freq * 1000);        //Eg, 87.5 * 10 --> 875
-    ret = androidFmRadioRxStart(env, thiz, 87500, 108000,  tmp_freq, 100);
+    ret = androidFmRadioRxStart(env, thiz, 76000, 108000,  tmp_freq, 100);
  //   ALOGD("%s, [ret=%d]\n", __func__, ret);
     return ret?JNI_FALSE:JNI_TRUE;
 }
