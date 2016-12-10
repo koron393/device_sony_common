@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Common path
+COMMON_PATH := device/sony/common
+
 # Vendor
 BOARD_VENDOR := sony
 
@@ -21,10 +24,10 @@ SONY_BF64_KERNEL_VARIANT := true
 
 # Overlay
 ifneq ($(BOARD_HAVE_RADIO),false)
-    DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay-radio
-    $(call inherit-product, device/sony/common/radio.mk)
+    DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay-radio
+    $(call inherit-product, $(COMMON_PATH)/radio.mk)
 else
-    DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay-wifionly
+    DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay-wifionly
 endif
 
 # Permissions
@@ -34,7 +37,7 @@ PRODUCT_COPY_FILES += \
 # CM Hardware
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
-BOARD_HARDWARE_CLASS += device/sony/common/cmhw
+BOARD_HARDWARE_CLASS += $(COMMON_PATH)/cmhw
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # CM Packages
@@ -50,10 +53,10 @@ USE_CUSTOM_AUDIO_POLICY := 1
 
 # Audio configs
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootdir/system/vendor/etc/audio_effects_caf.conf:system/vendor/etc/audio_effects.conf \
-    device/sony/common/rootdir/system/vendor/lib/soundfx/libqcbassboost.so:system/vendor/lib/soundfx/libqcbassboost.so \
-    device/sony/common/rootdir/system/vendor/lib/soundfx/libqcreverb.so:system/vendor/lib/soundfx/libqcreverb.so \
-    device/sony/common/rootdir/system/vendor/lib/soundfx/libqcvirt.so:system/vendor/lib/soundfx/libqcvirt.so
+    $(COMMON_PATH)/rootdir/system/vendor/etc/audio_effects_caf.conf:system/vendor/etc/audio_effects.conf \
+    $(COMMON_PATH)/rootdir/system/vendor/lib/soundfx/libqcbassboost.so:system/vendor/lib/soundfx/libqcbassboost.so \
+    $(COMMON_PATH)/rootdir/system/vendor/lib/soundfx/libqcreverb.so:system/vendor/lib/soundfx/libqcreverb.so \
+    $(COMMON_PATH)/rootdir/system/vendor/lib/soundfx/libqcvirt.so:system/vendor/lib/soundfx/libqcvirt.so
 
 # Audio Packages
 PRODUCT_PACKAGES += \
