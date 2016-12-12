@@ -113,7 +113,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # SDCardFS
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.sys.sdcardfs=false
+    ro.sys.sdcardfs=true
 
 # Set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
