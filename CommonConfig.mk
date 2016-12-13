@@ -78,8 +78,10 @@ include $(COMMON_PATH)/init/config.mk
 #endif
 
 BUILD_KERNEL := true
-TARGET_KERNEL_SOURCE := kernel/sony/msm
-TARGET_COMPILE_WITH_MSM_KERNEL := true
+ifeq ($(TARGET_KERNEL_SOURCE),)
+    TARGET_COMPILE_WITH_MSM_KERNEL := true
+    TARGET_KERNEL_SOURCE := kernel/sony/msm
+endif
 -include device/sony/common-headers/KernelHeaders.mk
 -include device/sony/common-kernel/KernelConfig.mk
 
