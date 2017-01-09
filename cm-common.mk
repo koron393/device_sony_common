@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
 
+# adb.secure
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.adb.secure=1
+
 # SDCardFS
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
