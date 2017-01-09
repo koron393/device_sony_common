@@ -46,7 +46,7 @@ BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # CM Packages
 PRODUCT_PACKAGES += \
-    Gello
+    Browser
 
 # Audio
 AUDIO_FEATURE_ENABLED_EXTN_POST_PROC := true
