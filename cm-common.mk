@@ -78,6 +78,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 DEVICE_SPECIFIC_CAMERA_PATH := hardware/sony/camera
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Camera package
 PRODUCT_PACKAGES += \
