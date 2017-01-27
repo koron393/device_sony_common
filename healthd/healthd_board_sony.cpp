@@ -37,6 +37,14 @@
 #define GREEN_LED_PATH         "/sys/class/leds/led:rgb_green/brightness"
 #define BLUE_LED_PATH          "/sys/class/leds/led:rgb_blue/brightness"
 
+#define CHARGER_TYPE_PATH      "/sys/class/power_supply/usb/type"
+#define RED_LED_BLINK_PATH     "/sys/class/leds/led:rgb_red/blink"
+#define GREEN_LED_BLINK_PATH   "/sys/class/leds/led:rgb_green/blink"
+
+#define HVDCP_COLOR_MAP        (RED_LED | GREEN_LED)
+#define HVDCP_CHARGER          "USB_HVDCP"
+#define HVDCP_BLINK_TYPE       2
+
 #define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
 #define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
@@ -68,6 +76,79 @@ struct soc_led_color_mapping soc_leds[3] = {
     {100, GREEN_LED},
 };
 
+static int write_file_int(char const* path, int value)
+{
+    int fd;
+    char buffer[20];
+    int rc = -1, bytes;
+
+    fd = open(path, O_WRONLY);
+    if (fd >= 0) {
+        bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
+        rc = write(fd, buffer, bytes);
+        close(fd);
+    }
+    return rc > 0 ? 0 : -1;
+}
+
+static bool is_hvdcp_inserted()
+{
+    bool hvdcp = false;
+    char buff[12] = "\0";
+    int fd, cnt;
+
+    fd = open(CHARGER_TYPE_PATH, O_RDONLY);
+    if (fd >= 0) {
+        cnt = read(fd, buff, sizeof(buff));
+        if (cnt > 0 && !strncmp(buff, HVDCP_CHARGER, 9))
+            hvdcp = true;
+        close(fd);
+    }
+    return hvdcp;
+}
+
+static int leds_blink_for_hvdcp_allow(void)
+{
+    int rc = 0, bytes;
+    int red_blink_fd = -1, green_blink_fd = -1, type_fd = -1;
+    char buf[20];
+
+    green_blink_fd = open(GREEN_LED_BLINK_PATH, O_RDWR);
+    red_blink_fd = open(RED_LED_BLINK_PATH, O_RDWR);
+    if (red_blink_fd < 0 && green_blink_fd < 0) {
+        LOGE("Could not open red && green led blink node\n");
+    } else {
+        type_fd = open(CHARGER_TYPE_PATH, O_RDONLY);
+        if (type_fd < 0) {
+            LOGE("Could not open USB type node\n");
+            close(red_blink_fd);
+            close(green_blink_fd);
+            return rc;
+        } else {
+            close(type_fd);
+            if (red_blink_fd > 0) {
+                rc |= RED_LED;
+                bytes = snprintf(buf, sizeof(buf), "%d\n", 0);
+                if (write(red_blink_fd, buf, bytes) < 0) {
+                    LOGE("Fail to write: %s\n", RED_LED_BLINK_PATH);
+                    rc = 0;
+                }
+                close(red_blink_fd);
+            }
+            if (green_blink_fd > 0) {
+                rc |= GREEN_LED;
+                bytes = snprintf(buf, sizeof(buf), "%d\n", 0);
+                if (write(green_blink_fd, buf, bytes) < 0) {
+                    LOGE("Fail to write: %s\n", GREEN_LED_BLINK_PATH);
+                    rc = 0;
+                }
+                close(green_blink_fd);
+            }
+        }
+    }
+    return rc;
+}
+
 static int set_tricolor_led(int on, int color)
 {
     int fd, i;
@@ -96,8 +177,16 @@ static int set_tricolor_led(int on, int color)
 
 static int set_battery_soc_leds(int soc)
 {
-    int i, color;
+    static int blink_for_hvdcp = -1;
+    int i, color, rc;
     static int old_color = 0;
+    bool blink = false;
+
+    if (blink_for_hvdcp == -1)
+        blink_for_hvdcp = leds_blink_for_hvdcp_allow();
+
+    if ((blink_for_hvdcp > 0) && is_hvdcp_inserted())
+        blink = true;
 
     for (i = 0; i < (int)ARRAY_SIZE(soc_leds); i++) {
         if (soc <= soc_leds[i].soc)
@@ -105,10 +194,25 @@ static int set_battery_soc_leds(int soc)
     }
     color = soc_leds[i].color;
     if (old_color != color) {
-        set_tricolor_led(0, old_color);
-        set_tricolor_led(1, color);
-        old_color = color;
-        LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
+        if ((color & HVDCP_COLOR_MAP) && blink) {
+            if (blink_for_hvdcp & RED_LED) {
+                rc = write_file_int(RED_LED_BLINK_PATH, HVDCP_BLINK_TYPE);
+                if (rc < 0) {
+                    LOGE("Fail to write: %s\n", RED_LED_BLINK_PATH);
+                }
+            }
+            if (blink_for_hvdcp & GREEN_LED) {
+                rc = write_file_int(GREEN_LED_BLINK_PATH, HVDCP_BLINK_TYPE);
+                if (rc < 0) {
+                    LOGE("Fail to write: %s\n", GREEN_LED_BLINK_PATH);
+                }
+            }
+        } else {
+                set_tricolor_led(0, old_color);
+                set_tricolor_led(1, color);
+                old_color = color;
+                LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
+        }
     }
     return 0;
 }
