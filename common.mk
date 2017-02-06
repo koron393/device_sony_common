@@ -289,8 +289,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.stats.af.paaf=0 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
-    persist.camera.zsl.mode=1 \
-    persist.camera.time.monotonic=0
+    persist.camera.zsl.mode=1
 
 ifneq ($(filter shinano rhine, $(SOMC_PLATFORM)),)
 PRODUCT_PROPERTY_OVERRIDES += \
