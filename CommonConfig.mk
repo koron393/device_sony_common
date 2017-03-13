@@ -94,5 +94,6 @@ endif
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
 
 # SELinux
+include device/qcom/sepolicy/sepolicy.mk
 include device/sony/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy
