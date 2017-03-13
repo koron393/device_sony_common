@@ -258,7 +258,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Low latency audio buffer size in frames
 PRODUCT_PROPERTY_OVERRIDES += \
-    audio_hal.period_size=192
+    audio_hal.period_size=480
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
