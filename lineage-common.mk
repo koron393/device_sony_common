@@ -88,6 +88,11 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 PRODUCT_PACKAGES += \
     Snap
 
+# Cryptfs hw
+TARGET_CRYPTFS_HW_PATH := $(COMMON_PATH)/cryptfs_hw
+PRODUCT_PACKAGES += \
+    libcryptfs_hw
+
 # Display
 PRODUCT_PACKAGES += \
     libgenlock \
