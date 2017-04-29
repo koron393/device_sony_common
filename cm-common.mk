@@ -74,7 +74,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true \
     audio.offload.video=true \
-    av.streaming.offload.enable=true
+    audio.offload.multiple.enabled=true \
+    audio.offload.pcm.enable=enable \
+    av.streaming.offload.enable=true \
+    audio.offload.track.enable=true \
+
 
 # Camera
 DEVICE_SPECIFIC_CAMERA_PATH := hardware/sony/camera

@@ -250,7 +250,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true \
-    audio.deep_buffer.media=1
+    audio.deep_buffer.media=false
 
 # Reduce client buffer size for fast audio output tracks
 PRODUCT_PROPERTY_OVERRIDES += \
