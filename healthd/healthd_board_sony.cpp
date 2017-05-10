@@ -60,7 +60,7 @@ struct led_ctl {
     const char *path;
 };
 
-struct led_ctl leds[3] =
+struct led_ctl sony_leds[3] =
     {{RED_LED, RED_LED_PATH},
     {GREEN_LED, GREEN_LED_PATH},
     {BLUE_LED, BLUE_LED_PATH}};
@@ -70,7 +70,7 @@ struct soc_led_color_mapping {
     int color;
 };
 
-struct soc_led_color_mapping soc_leds[3] = {
+struct soc_led_color_mapping sony_soc_leds[3] = {
     {15, RED_LED},
     {90, RED_LED | GREEN_LED},
     {100, GREEN_LED},
@@ -154,9 +154,9 @@ static int set_tricolor_led(int on, int color)
     int fd, i;
     char buffer[10];
 
-    for (i = 0; i < (int)ARRAY_SIZE(leds); i++) {
-        if ((color & leds[i].color) && (access(leds[i].path, R_OK | W_OK) == 0)) {
-            fd = open(leds[i].path, O_RDWR);
+    for (i = 0; i < (int)ARRAY_SIZE(sony_leds); i++) {
+        if ((color & sony_leds[i].color) && (access(sony_leds[i].path, R_OK | W_OK) == 0)) {
+            fd = open(sony_leds[i].path, O_RDWR);
             if (fd < 0) {
                 LOGE("Could not open led node %d\n", i);
                 continue;
@@ -188,11 +188,11 @@ static int set_battery_soc_leds(int soc)
     if ((blink_for_hvdcp > 0) && is_hvdcp_inserted())
         blink = true;
 
-    for (i = 0; i < (int)ARRAY_SIZE(soc_leds); i++) {
-        if (soc <= soc_leds[i].soc)
+    for (i = 0; i < (int)ARRAY_SIZE(sony_soc_leds); i++) {
+        if (soc <= sony_soc_leds[i].soc)
             break;
     }
-    color = soc_leds[i].color;
+    color = sony_soc_leds[i].color;
     if (old_color != color) {
         if ((color & HVDCP_COLOR_MAP) && blink) {
             if (blink_for_hvdcp & RED_LED) {
@@ -211,7 +211,7 @@ static int set_battery_soc_leds(int soc)
                 set_tricolor_led(0, old_color);
                 set_tricolor_led(1, color);
                 old_color = color;
-                LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
+                LOGV("soc = %d, set led color 0x%x\n", soc, sony_soc_leds[i].color);
         }
     }
     return 0;
