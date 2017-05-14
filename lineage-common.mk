@@ -44,10 +44,6 @@ BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
 BOARD_HARDWARE_CLASS += $(COMMON_PATH)/cmhw
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# CM Packages
-PRODUCT_PACKAGES += \
-    Browser
-
 # Audio
 AUDIO_FEATURE_ENABLED_EXTN_POST_PROC := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
