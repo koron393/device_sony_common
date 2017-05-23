@@ -306,17 +306,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.ois.disable=0 \
     persist.camera.zsl.mode=1
 
-ifneq ($(filter shinano rhine, $(SOMC_PLATFORM)),)
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=0
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1
-    # sec_config (sensors) is already provided by rhine and shinano
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config
-endif
-
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=0 \
