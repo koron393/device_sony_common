@@ -35,7 +35,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 
 # DataServices
-DEVICE_SPECIFIC_DATASERVICES := hardware/sony/dataservices
+DEVICE_SPECIFIC_DATASERVICES_PATH := hardware/sony/dataservices
 USE_DEVICE_SPECIFIC_DATASERVICES := true
 
 # CM Hardware
